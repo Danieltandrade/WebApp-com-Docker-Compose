@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 COPY . .
 
-RUN pip install --upgrade pip
+RUN python3 -m pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8501
