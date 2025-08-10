@@ -1,13 +1,30 @@
 """
-# app.py
+WebApp-com-Docker-Compose
 
-Exemplo de aplicação Streamlit que se conecta a um banco MySQL usando Docker Compose.
+Aplicação web desenvolvida com Streamlit para execução de consultas SQL em um banco de dados MySQL.
+A conexão é realizada via SQLAlchemy, utilizando variáveis de ambiente configuradas pelo Docker Compose.
+Permite ao usuário digitar consultas SQL, visualizar resultados e explorar dados de forma interativa.
+
+Requisitos:
+- Streamlit
+- pandas
+- SQLAlchemy
+- pymysql
+
+Como executar:
+1. Configure o ambiente com Docker Compose.
+2. Execute o container da aplicação.
+3. Acesse a interface web para realizar consultas SQL.
+
+Autor: Daniel Torres de Andrade
+Licença: Apache 2.0
 """
 
 import streamlit as st
 import pandas as pd
 import os
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine
+from sqlalchemy import text
 
 st.set_page_config(layout="wide")  # Já abre com layout mais largo
 
@@ -50,8 +67,7 @@ db_host = os.getenv('MYSQL_HOST', '192.168.100.155')
 db_name = os.getenv('MYSQL_DB', 'db_webapp')
 
 # Cria a conexão via SQLAlchemy
-engine = create_engine(f"mysql+mysqlconnector://{db_user}:{db_password}@{db_host}/{db_name}")
-
+engine = create_engine(f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}")
 # Caixa de texto para a consulta SQL
 consulta_sql = st.text_area(
     "Digite sua consulta SQL:",
